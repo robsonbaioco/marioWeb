@@ -1,6 +1,7 @@
-const mario = document.querySelector('.mario');
-const pipe = document.querySelector('.pipe');
+const mario  = document.querySelector('.mario');
+const pipe   = document.querySelector('.pipe');
 const clouds = document.querySelector('.clouds');
+var score    = 0;
 
 const jump = () => {
     mario.classList.add('jump'); 
@@ -14,7 +15,8 @@ const loop = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
     const cloudsPosition = clouds.offsetLeft;
-  
+
+    // Game Over
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
         
         pipe.style.animation = 'none';
@@ -31,8 +33,15 @@ const loop = setInterval(() => {
         mario.style.width = '75px';
         mario.style.marginLeft = '50px';
 
+        $('.board').show();
+
+        $('#action-score-final').text('Score: ' + score);
+
         clearInterval(loop);
     }
+
+    // Score
+    $('#action-score').text(score++);
 }
 , 10);
 document.addEventListener('keypress', jump)
